@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리눅스 마스터 2급 초압축 요약집</title>
+    <style>
+        :root {
+            --primary-color: #2b6cb0;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --accent-color: #e53e3e;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        header p {
+            color: #718096;
+            margin: 0;
+        }
+        /* 탭 스타일 */
+        .tabs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .tab-button {
+            flex: 1;
+            padding: 12px;
+            background: none;
+            border: none;
+            font-size: 15px;
+            font-weight: bold;
+            color: #4a5568;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .tab-button:hover {
+            color: var(--primary-color);
+            background-color: #edf2f7;
+        }
+        .tab-button.active {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            margin-bottom: -2px;
+        }
+        .tab-content {
+            display: none;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .tab-content.active {
+            display: block;
+        }
+        /* 콘텐츠 내부 스타일 */
+        h2 {
+            color: var(--primary-color);
+            border-left: 4px solid var(--primary-color);
+            padding-left: 10px;
+            margin-top: 0;
+        }
+        .overview {
+            background-color: #ebf8ff;
+            border-left: 4px solid #3182ce;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .highlight {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 10px;
+            text-align: left;
+            font-size: 14px;
+        }
+        th {
+            background-color: #f7fafc;
+            color: #4a5568;
+            width: 30%;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>리눅스 마스터 2급 핵심 요약</h1>
+        <p>300페이지 기본서를 핵심만 압축한 모바일/PC 겸용 자습서</p>
+    </header>
+
+    <!-- 탭 메뉴 -->
+    <div class="tabs">
+        <button class="tab-button active" onclick="openTab(event, 'subject1')">1과목. 리눅스 일반</button>
+        <button class="tab-button" onclick="openTab(event, 'subject2')">2과목. 운영 및 관리</button>
+        <button class="tab-button" onclick="openTab(event, 'subject3')">3과목. 리눅스 활용</button>
+    </div>
+
+    <!-- 1과목 내용 -->
+    <div id="subject1" class="tab-content active">
+        <h2>1과목: 리눅스 일반 (기초 뼈대)</h2>
+        <div class="overview">
+            <strong>개요:</strong> 리눅스의 역사, 철학 및 <span class="highlight">가장 기초적인 파일/디렉터리 조작 명령어</span>를 다룹니다. 1차 온라인 시험의 핵심이자 2차 시험의 기반이 됩니다.
+        </div>
+
+        <h3>📌 필수 암기 디렉터리 구조 (FHS)</h3>
+        <table>
+            <tr><th>/etc</th><td>시스템의 <span class="highlight">각종 설정 파일</span>이 저장되는 곳 (가장 중요)</td></tr>
+            <tr><th>/var</th><td>로그(Log), 메일 등 내용이 <span class="highlight">자주 변하는 가변 데이터</span> 저장</td></tr>
+            <tr><th>/bin</th><td>사용자가 사용하는 <span class="highlight">기본적인 필수 명령어</span> 위치</td></tr>
+            <tr><th>/sbin</th><td><span class="highlight">시스템 관리자(root)</span>가 사용하는 시스템 관리 명령어</td></tr>
+        </table>
+
+        <h3>📌 시험에 무조건 나오는 기초 명령어</h3>
+        <ul>
+            <li><strong>ls:</strong> 디렉터리 목록 보기 (<span class="highlight">-a</span>: 숨김파일 표시, <span class="highlight">-l</span>: 상세 정보 표시)</li>
+            <li><strong>cp / mv / rm:</strong> 파일 복사 / 이동(이름변경) / 삭제 (<span class="highlight">-r</span>: 디렉터리 대상 적용)</li>
+            <li><strong>pwd:</strong> 현재 작업 중인 디렉터리의 절대 경로 표시</li>
+            <li><strong>chmod:</strong> 파일 권한 변경 (예: <span class="highlight">chmod 755 파일명</span> -> rwxr-xr-x)</li>
+            <li><strong>chown:</strong> 파일의 소유자와 소유 그룹 변경</li>
+        </ul>
+    </div>
+
+    <!-- 2과목 내용 -->
+    <div id="subject2" class="tab-content">
+        <h2>2과목: 리눅스 운영 및 관리 (실무 제어)</h2>
+        <div class="overview">
+            <strong>개요:</strong> 사용자(User) 관리, 프로세스 관리, 파일 시스템 구축, 소프트웨어 설치 등 <span class="highlight">서버 관리자로서 시스템을 운영하는 실제적인 기술</span>을 다룹니다. 2차 시험에서 가장 높은 배점(48문항)을 차지합니다.
+        </div>
+
+        <h3>📌 필수 암기 핵심 파일 경로</h3>
+        <table>
+            <tr><th>/etc/passwd</th><td>사용자 계정 정보 (UID, GID, 기본 셸 등)</td></tr>
+            <tr><th>/etc/shadow</th><td>사용자의 <span class="highlight">암호화된 비밀번호</span> 및 만료일 관리</td></tr>
+            <tr><th>/etc/fstab</th><td>부팅 시 <span class="highlight">자동 마운트</span>할 파일 시스템 정보 설정</td></tr>
+        </table>
+
+        <h3>📌 단골 출제 핵심 명령어 및 옵션</h3>
+        <ul>
+            <li><strong>ps:</strong> 현재 실행 중인 프로세스 확인 (<span class="highlight">ps aux</span> 또는 <span class="highlight">ps -ef</span> 형태로 자주 출제)</li>
+            <li><strong>kill:</strong> 프로세스 종료 (가장 강한 강제 종료 시그널은 <span class="highlight">-9</span>)</li>
+            <li><strong>tar:</strong> 파일 아카이브 묶기/풀기 (<span class="highlight">-xvf</span>: 풀기, <span class="highlight">-cvf</span>: 묶기, <span class="highlight">-z</span>: gzip 압축 연동)</li>
+            <li><strong>rpm / yum / apt:</strong> 패키지 설치 및 관리 명령어 (각 진영별 차이점 비교 출제)</li>
+            <li><strong>cron:</strong> 정기적인 예약 작업 설정 (<span class="highlight">crontab -e</span>로 편집, 분-시-일-월-요일 순서)</li>
+        </ul>
+    </div>
+
+    <!-- 3과목 내용 -->
+    <div id="subject3" class="tab-content">
+        <h2>3과목: 리눅스 활용 (네트워크 & 서비스)</h2>
+        <div class="overview">
+            <strong>개요:</strong> 리눅스 서버에 네트워크를 연결하고, 웹 서버(Apache), 파일 서버(FTP, Samba) 등 <span class="highlight">네트워크 기반의 오픈소스 서비스를 활성화하고 제어</span>하는 과목입니다. (32문항 출제)
+        </div>
+
+        <h3>📌 서비스별 프로토콜 및 기본 포트(Port) 번호</h3>
+        <table>
+            <tr><th>SSH (보안 원격 접속)</th><td>TCP <span class="highlight">22번</span> (설정 파일: /etc/ssh/sshd_config)</td></tr>
+            <tr><th>HTTP (웹 서버 / Apache)</th><td>TCP <span class="highlight">80번</span> (설정 파일: httpd.conf)</td></tr>
+            <tr><th>FTP (파일 전송)</th><td>TCP <span class="highlight">21번</span>(제어), <span class="highlight">20번</span>(데이터)</td></tr>
+            <tr><th>DNS (도메인 네임 서버)</th><td>UDP/TCP <span class="highlight">53번</span> (설정 파일: named.conf)</td></tr>
+        </table>
+
+        <h3>📌 네트워크 확인 및 설정 명령어</h3>
+        <ul>
+            <li><strong>ifconfig / ip:</strong> 네트워크 인터페이스(IP 주소 등) 확인 및 설정</li>
+            <li><strong>netstat / ss:</strong> 현재 시스템의 네트워크 연결 상태 및 <span class="highlight">열려 있는 포트 확인</span></li>
+            <li><strong>ping:</strong> 네트워크 연결이 정상적으로 작동하는지 패킷을 보내 확인</li>
+            <li><strong>nslookup / dig:</strong> DNS 서버에 도메인 이름 쿼리(IP 주소 조회)</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].className = tabcontent[i].className.replace(" active", "");
+        }
+        tablinks = document.getElementsByClassName("tab-button");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).className += " active";
+        evt.currentTarget.className += " active";
+    }
+</script>
+
+</body>
+</html>
