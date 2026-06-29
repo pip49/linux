@@ -6,13 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>리눅스 마스터 2급 초압축 요약집</title>
     <style>
+        /* 💡 다크모드 대응을 위해 CSS 변수를 이원화 체계로 변경했습니다. */
         :root {
             --primary-color: #2b6cb0;
             --bg-color: #f7fafc;
             --card-bg: #ffffff;
             --text-color: #2d3748;
             --accent-color: #e53e3e;
+
+            /* 라이트모드 전용 변수 */
+            --overview-bg: #ebf8ff;
+            --overview-border: #3182ce;
+            --table-th-bg: #f7fafc;
+            --border-color: #e2e8f0;
+            --sub-text: #718096;
+            --tab-hover: #edf2f7;
         }
+
+        /* 🌙 다크모드 활성화 시 적용될 스타일 */
+        body.dark-mode {
+            --primary-color: #60a5fa;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f1f5f9;
+            --accent-color: #f43f5e;
+
+            /* 다크모드 전용 변수 */
+            --overview-bg: #1e3a8a;
+            --overview-border: #3b82f6;
+            --table-th-bg: #0f172a;
+            --border-color: #334155;
+            --sub-text: #94a3b8;
+            --tab-hover: #334155;
+        }
+
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
@@ -20,29 +47,56 @@
             line-height: 1.6;
             margin: 0;
             padding: 20px;
+            transition: background-color 0.3s, color 0.3s; /* 부드러운 화면 전환 효과 */
         }
         .container {
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
         }
         header {
             text-align: center;
             margin-bottom: 30px;
+            padding-top: 40px; /* 토글 버튼 공간 확보 */
         }
         header h1 {
             color: var(--primary-color);
             margin-bottom: 5px;
         }
         header p {
-            color: #718096;
+            color: var(--sub-text);
             margin: 0;
         }
+
+        /* 💡 우측 상단 다크모드 토글 버튼 스타일 */
+        .theme-toggle-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--tab-hover);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .theme-toggle-btn:hover {
+            transform: scale(1.05);
+            background-color: var(--border-color);
+        }
+
         /* 탭 스타일 */
         .tabs {
             display: flex;
             justify-content: space-between;
             margin-bottom: 20px;
-            border-bottom: 2px solid #e2e8f0;
+            border-bottom: 2px solid var(--border-color);
         }
         .tab-button {
             flex: 1;
@@ -51,14 +105,14 @@
             border: none;
             font-size: 15px;
             font-weight: bold;
-            color: #4a5568;
+            color: var(--sub-text);
             cursor: pointer;
             text-align: center;
             transition: all 0.3s;
         }
         .tab-button:hover {
             color: var(--primary-color);
-            background-color: #edf2f7;
+            background-color: var(--tab-hover);
         }
         .tab-button.active {
             color: var(--primary-color);
@@ -71,6 +125,7 @@
             padding: 25px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
         }
         .tab-content.active {
             display: block;
@@ -83,11 +138,12 @@
             margin-top: 0;
         }
         .overview {
-            background-color: #ebf8ff;
-            border-left: 4px solid #3182ce;
+            background-color: var(--overview-bg);
+            border-left: 4px solid var(--overview-border);
             padding: 15px;
             border-radius: 4px;
             margin-bottom: 20px;
+            color: var(--text-color);
         }
         .highlight {
             color: var(--accent-color);
@@ -100,14 +156,15 @@
             margin-bottom: 15px;
         }
         th, td {
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--border-color);
             padding: 10px;
             text-align: left;
             font-size: 14px;
+            color: var(--text-color);
         }
         th {
-            background-color: #f7fafc;
-            color: #4a5568;
+            background-color: var(--table-th-bg);
+            font-weight: bold;
             width: 30%;
         }
         ul {
@@ -122,16 +179,17 @@
 
 <div class="container">
     <header>
+        <button class="theme-toggle-btn" onclick="toggleDarkMode()">🌙 다크모드</button>
+        <h1>리눅스 마스터 2급 초압축 요약집</h1>
+        <p>핵심 개념 뼈대 정리본</p>
     </header>
 
-    <!-- 탭 메뉴 -->
     <div class="tabs">
         <button class="tab-button active" onclick="openTab(event, 'subject1')">1과목. 리눅스 일반</button>
         <button class="tab-button" onclick="openTab(event, 'subject2')">2과목. 운영 및 관리</button>
         <button class="tab-button" onclick="openTab(event, 'subject3')">3과목. 리눅스 활용</button>
     </div>
 
-    <!-- 1과목 내용 -->
     <div id="subject1" class="tab-content active">
         <h2>1과목: 리눅스 일반 (기초 뼈대)</h2>
         <div class="overview">
@@ -156,7 +214,6 @@
         </ul>
     </div>
 
-    <!-- 2과목 내용 -->
     <div id="subject2" class="tab-content">
         <h2>2과목: 리눅스 운영 및 관리 (실무 제어)</h2>
         <div class="overview">
@@ -180,7 +237,6 @@
         </ul>
     </div>
 
-    <!-- 3과목 내용 -->
     <div id="subject3" class="tab-content">
         <h2>3과목: 리눅스 활용 (네트워크 & 서비스)</h2>
         <div class="overview">
@@ -206,6 +262,7 @@
 </div>
 
 <script>
+    // 탭 전환 함수
     function openTab(evt, tabName) {
         var i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName("tab-content");
@@ -218,6 +275,20 @@
         }
         document.getElementById(tabName).className += " active";
         evt.currentTarget.className += " active";
+    }
+
+    // 💡 다크모드 토글 자바스크립트 로직 추가
+    function toggleDarkMode() {
+        const body = document.body;
+        const btn = document.querySelector('.theme-toggle-btn');
+
+        body.classList.toggle('dark-mode');
+
+        if (body.classList.contains('dark-mode')) {
+            btn.innerHTML = '☀️ 라이트모드';
+        } else {
+            btn.innerHTML = '🌙 다크모드';
+        }
     }
 </script>
 
