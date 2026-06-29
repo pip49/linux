@@ -1,0 +1,338 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리눅스 마스터 2급 2차 시험 개념 트리</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border-color: #e2e8f0;
+            --part-bg: #1e3a8a;
+            --part-text: #ffffff;
+            --sub-bg: #eff6ff;
+            --sub-border: #3b82f6;
+            --sub-text: #1d4ed8;
+            --concept-bg: #f1f5f9;
+            --highlight: #be123c;
+        }
+
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --part-bg: #3b82f6;
+            --part-text: #0f172a;
+            --sub-bg: #1e3a8a;
+            --sub-border: #60a5fa;
+            --sub-text: #93c5fd;
+            --concept-bg: #0f172a;
+            --highlight: #f43f5e;
+        }
+
+        body {
+            font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-top: 30px;
+        }
+
+        header h1 {
+            font-size: 26px;
+            margin-bottom: 10px;
+            color: var(--part-bg);
+            transition: color 0.3s;
+        }
+
+        .theme-toggle-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+        }
+
+        .theme-toggle-btn:hover {
+            transform: scale(1.05);
+            background-color: var(--border-color);
+        }
+
+        /* 트리 대분류 (PART) */
+        .part-section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .part-header {
+            background-color: var(--part-bg);
+            color: var(--part-text);
+            padding: 15px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .part-body {
+            padding: 20px;
+        }
+
+        /* 트리 중분류 (소과목) */
+        .sub-tree {
+            margin-bottom: 20px;
+        }
+
+        .sub-tree:last-child {
+            margin-bottom: 0;
+        }
+
+        .sub-title {
+            background-color: var(--sub-bg);
+            border-left: 4px solid var(--sub-border);
+            color: var(--sub-text);
+            padding: 8px 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 0 6px 6px 0;
+            margin-bottom: 12px;
+            transition: all 0.3s;
+        }
+
+        /* 트리 소분류 (소개념) */
+        .concept-list {
+            list-style: none;
+            padding-left: 15px;
+            margin: 0;
+        }
+
+        .concept-item {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            color: var(--text-muted);
+            font-size: 14.5px;
+        }
+
+        /* 트리 가지 선 효과 */
+        .concept-item::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 12px;
+            height: 1px;
+            background-color: var(--border-color);
+        }
+
+        .concept-item::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1px;
+            height: 11px;
+            background-color: var(--border-color);
+        }
+
+        .concept-item:last-child::after {
+            height: 11px;
+        }
+
+        .concept-name {
+            font-weight: bold;
+            color: var(--text-main);
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .highlight {
+            color: var(--highlight);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <button class="theme-toggle-btn" onclick="toggleDarkMode()">다크모드</button>
+        <h1>리눅스 마스터 2급 2차 시험 개념 트리</h1>
+    </header>
+
+    <div class="part-section">
+        <div class="part-header">PART 01. 리눅스 일반 (24문항)</div>
+        <div class="part-body">
+
+            <div class="sub-tree">
+                <div class="sub-title">1. 리눅스의 이해</div>
+                <ul class="concept-list">
+                    <li class="concept-item"><span class="concept-name">운영체제의 이해:</span> 커널(Kernel)과 셸(Shell)의 역할 구조, 유닉스(UNIX)와의 연관성 및 미닉스(Minix) 기반 개발 역사</li>
+                    <li class="concept-item"><span class="concept-name">리눅스의 철학 및 역사:</span> GNU 프로젝트(리차드 스톨만)와 FSF, 리누스 토발즈의 커널 공개</li>
+                    <li class="concept-item"><span class="concept-name">오픈소스 라이선스:</span> GPL(<span class="highlight">수정본 공개 필수</span>), LGPL(라이브러리 링크 허용), BSD/Apache(상용화 허용, 출처 명시)</li>
+                    <li class="concept-item"><span class="concept-name">리눅스 배포판 계열:</span> RedHat 계열(CentOS, Fedora, Rocky), Debian 계열(Ubuntu, Debian), Slackware 계열(OpenSUSE)</li>
+                </ul>
+            </div>
+
+            <div class="sub-tree">
+                <div class="sub-title">2. 리눅스 설치</div>
+                <ul class="concept-list">
+                    <li class="concept-item"><span class="concept-name">하드웨어 선택 및 파티션:</span> 파티션 개념(주 파티션 최대 4개, 논리 파티션), Swap 파티션(메모리 부족 백업 공간, RAM의 1~2배 설정)</li>
+                    <li class="concept-item"><span class="concept-name">부트 매니저:</span> GRUB의 특징 및 설정 파일 구조, 부팅 프로세스 순서(BIOS -> MBR -> GRUB -> Kernel -> systemd)</li>
+                </ul>
+            </div>
+
+            <div class="sub-tree">
+                <div class="sub-title">3. 기본 명령어 및 셸 제어</div>
+                <ul class="concept-list">
+                    <li class="concept-item"><span class="concept-name">디렉터리 구조 (FHS 표준):</span> <span class="highlight">/etc</span>(설정), <span class="highlight">/var</span>(가변 로그), /bin(필수 명령어), /sbin(관리자 명령어), /proc(가상 프로세스 정보)</li>
+                    <li class="concept-item"><span class="concept-name">기본 조작 명령어:</span> ls(-a, -l, -R 옵션), cp(-r 옵션), mv, rm(-f, -r 옵션), pwd, mkdir, rmdir</li>
+                    <li class="concept-item"><span class="concept-name">텍스트 처리 및 편집 명령어:</span> cat, more, less, head, tail(-f 실시간 로그 확인), grep(-i, -v, -n 옵션), find(-name, -user, -perm 옵션)</li>
+                    <li class="concept-item"><span class="concept-name">리다이렉션 및 파이프:</span> 표준 입력(0), 표준 출력(1), 표준 에러(2), 덮어쓰기(&gt;), 이어쓰기(&gt;&gt;), 에러 추출(2&gt;), 명령어 연동 파이프(|)</li>
+                    <li class="concept-item"><span class="concept-name">Bash 셸 환경 변수:</span> env, export, 대소문자 매칭 필수 환경변수($PATH, $HOME, $USER, $SHELL, $HISTSIZE)</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="part-section">
+        <div class="part-header">PART 02. 리눅스 운영 및 관리 (48문항 - 최고 배점)</div>
+        <div class="part-body">
+
+            <div class="sub-tree">
+                <div class="sub-title">1. 사용자 및 그룹 관리</div>
+                <ul class="concept-list">
+                    <li class="concept-item"><span class="concept-name">계정 정보 파일:</span> /etc/passwd(7개 필드 구조: UID, GID, 홈디렉터리, 셸 경로), /etc/shadow(비밀번호 암호화 및 만료 주기)</li>
+                    <li class="concept-item"><span class="concept-name">그룹 정보 파일:</span> /etc/group, /etc/gshadow</li>
+                    <li class="concept-item"><span class="concept-name">사용자 생성 및 설정:</span> useradd / adduser, 생성 정책 참조 파일(/etc/default/useradd, /etc/login.defs), 환경 설정 뼈대 디렉터리(/etc/skel)</li>
+                    <li class="concept-item"><span class="concept-name">계정 수정 및 삭제:</span> usermod(-G, -s, -L, -U 옵션), userdel(-r 옵션 필수), passwd, chage(비밀번호 만료 정책 설정)</li>
+                </ul>
+            </div>
+
+            <div class="sub-tree">
+                <div class="sub-title">2. 파일 시스템 및 디스크 관리</div>
+                <ul class="concept-list">
+                    <li class="concept-item"><span class="concept-name">리눅스 파일 시스템:</span> ext2(초기 표준), ext3(저널링 도입), ext4(대용량 및 서브디렉터리 확장), xfs(고성능 64비트, RHEL 7+ 기본값)</li>
+                    <li class="concept-item"><span class="concept-name">디스크 파티션 및 포맷:</span> fdisk(n, d, p, w 서브 명령어), mkfs / mke2fs(-t 옵션으로 파일시스템 지정)</li>
+                    <li class="concept-item"><span class="concept-name">마운트 제어:</span> mount(장치와 디렉터리 연결), umount, 자동 마운트 설정 파일(/etc/fstab의 6개 필드 구조 및 옵션)</li>
+                    <li class="concept-item"><span class="concept-name">용량 점검 명령어:</span> df(디스크 전체 남은 공간, -h 인류 친화 단위), du(특정 디렉터리/파일 사용 용량)</li>
+                </ul>
+            </div>
+
+            <div class="sub-tree">
+                <div class="sub-title">3. 프로세스 및 작업 제어</div>
+                <ul class="concept-list">
+                    <li class="concept-item"><span class="concept-name">프로세스 확인:</span> ps 진영별 옵션(ps aux - BSD 스타일 / ps -ef - System V 스타일), top(실시간 모니터링), pstree</li>
+                    <li class="concept-item"><span class="concept-name">시그널 제어:</span> kill, killall, 필수 암기 시그널 번호(1: SIGHUP 재시작, 9: SIGKILL 강제종료, 15: SIGTERM 정상종료 기본값)</li>
+                    <li class="concept-item"><span class="concept-name">작업 전환 (Job Control):</span> 포그라운드(Foreground), 백그라운드 전환 및 기호(&amp;), 작업 일시정지(Ctrl + Z), 작업 명세(jobs), 전환 명령어(fg, bg)</li>
+                </ul>
+            </div>
+
+            <div class="sub-tree">
+                <div class="sub-title">4. 소프트웨어 및 압축 관리</div>
+                <ul class="concept-list">
+                    <li class="concept-item"><span class="concept-name">압축 및 아카이브:</span> tar 4대 필수 조합(-cvf 묶기, -xvf 풀기, -z gzip 연동, -j bzip2 연동, -J xz 연동)</li>
+                    <li class="concept-item"><span class="concept-name">RedHat 계열 패키지:</span> rpm(-ivh 설치, -Uvh 업그레이드, -e 삭제, -qa 전체 조회, -ql 파일 경로 조회), 고도화 도구 yum / dnf(의존성 자동 해결)</li>
+                    <li class="concept-item"><span class="concept-name">Debian 계열 패키지:</span> dpkg(-i 설치, -r 삭제, -l 조회), 고도화 도구 apt-get / apt</li>
+                </ul>
+            </div>
+
+            <div class="sub-tree">
+                <div class="sub-title">5. 장치 관리 및 시스템 예약</div>
+                <ul class="concept-list">
+                    <li class="concept-item"><span class="concept-name">주변 장치 설정:</span> 쿠키 및 모듈 관리 명령어(lsmod, insmod, rmmod, modprobe)</li>
+                    <li class="concept-item"><span class="concept-name">정기 스케줄러 (Cron):</span> crontab -e(편집), crontab -l(조회), crontab -r(삭제), 설정 필드 순서(<span class="highlight">분-시-일-월-요일</span>)</li>
+                    <li class="concept-item"><span class="concept-name">단발성 스케줄러 (At):</span> at(지정 시간 단 1회 실행), atq(대기열 조회), atrm(작업 삭제), 실행 데몬 atd</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="part-section">
+        <div class="part-header">PART 03. 리눅스 활용 (32문항)</div>
+        <div class="part-body">
+
+            <div class="sub-tree">
+                <div class="sub-title">1. 네트워크 개념 및 설정</div>
+                <ul class="concept-list">
+                    <li class="concept-item"><span class="concept-name">네트워크 기초 프로토콜:</span> OSI 7계층 구조와 계정별 장비(라우터, 스위치), TCP/IP 4계층 매핑 구조</li>
+                    <li class="concept-item"><span class="concept-name">네트워크 인터페이스 설정:</span> ifconfig, ip(주소 할당 및 확인), 인터페이스 활성/비활성(ifup, ifdown)</li>
+                    <li class="concept-item"><span class="concept-name">인프라 환경 설정 파일:</span> /etc/sysconfig/network-scripts/ifcfg-[인터페이스명](고정IP 설정 매개변수 BOOTPROTO=static, ONBOOT=yes), /etc/resolv.conf(nameserver DNS 지정), /etc/hosts(로컬 매핑)</li>
+                    <li class="concept-item"><span class="concept-name">네트워크 상태 점검:</span> netstat 필수 옵션 조합(-anp 모든 포트 번호와 PID 매핑, -lntp 리슨 상태 TCP 조회), ping, traceroute, route(라우팅 테이블 관리), arp(MAC 주소 확인), nslookup / dig(DNS 질의)</li>
+                </ul>
+            </div>
+
+            <div class="sub-tree">
+                <div class="sub-title">2. 오픈소스 서버 서비스</div>
+                <ul class="concept-list">
+                    <li class="concept-item"><span class="concept-name">웹 서버 (Web):</span> HTTP 프로토콜(기본 TCP 80번), Apache 데몬(httpd), 설정 파일(httpd.conf 내부 DocumentRoot 지시어)</li>
+                    <li class="concept-item"><span class="concept-name">원격 접속 서버:</span> 보안 셸(SSH, TCP 22번, 설정 파일 /etc/ssh/sshd_config), 텔넷(Telnet, TCP 23번, 암호화 없음)</li>
+                    <li class="concept-item"><span class="concept-name">파일 공유 서버:</span> Samba(이기종 윈도우-리눅스 간 공유, 포트 139/445, smb.conf), NFS(리눅스 간 디렉터리 마운트 공유, /etc/exports)</li>
+                    <li class="concept-item"><span class="concept-name">도메인 네임 서버 (DNS):</span> BIND 데몬(named, UDP/TCP 53번), 설정 파일(/etc/named.conf 및 Zone 파일 명세)</li>
+                </ul>
+            </div>
+
+            <div class="sub-tree">
+                <div class="sub-title">3. 보안 및 가상화 인프라</div>
+                <ul class="concept-list">
+                    <li class="concept-item"><span class="concept-name">패킷 필터링 방화벽:</span> iptables 3대 체인(INPUT, OUTPUT, FORWARD), 3대 타겟 타깃 처리 방식(ACCEPT 통과, DROP 무응답 차단, REJECT 안내 후 거절)</li>
+                    <li class="concept-item"><span class="concept-name">가상화 하이퍼바이저:</span> 전가상화(하드웨어 완전 가상화, 수정 없음, KVM, VirtualBox) 대 반가상화(게스트 OS 커널 수정, 속도 향상, Xen)</li>
+                    <li class="concept-item"><span class="concept-name">컨테이너 가상화:</span> 하이퍼바이저 없이 OS 커널 레벨 격리 공간 제공, 가볍고 빠른 배포(대표 주자: Docker)</li>
+                    <li class="concept-item"><span class="concept-name">클라우드 서비스 모델:</span> IaaS(하드웨어 자원 인프라 제공, AWS EC2), PaaS(개발 런타임 플랫폼 제공, Firebase), SaaS(완성형 소프트웨어 제공, Google Drive)</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleDarkMode() {
+        const body = document.body;
+        const btn = document.querySelector('.theme-toggle-btn');
+
+        body.classList.toggle('dark-mode');
+
+        if (body.classList.contains('dark-mode')) {
+            btn.innerHTML = '라이트모드';
+        } else {
+            btn.innerHTML = '다크모드';
+        }
+    }
+</script>
+
+</body>
+</html>
